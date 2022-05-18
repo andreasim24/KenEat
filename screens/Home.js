@@ -7,6 +7,8 @@ import RestaurantItems, {
   localRestaurants
 } from "../components/home/RestaurantItems";
 import BottomTab from "../components/home/BottomTab";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Divider } from "react-native-elements";
 
 const YELP_API_KEY =
   "JypbyxAyHCOTfZwoqzElVERgY2pZR3Bko6T_htUW5oyomUTVd6WIm8t4DKpZT9dX83bIhD0wSSsXUVq4JsNl9-7YUVuSIKY6ReIFKtvazUjkcWPkl0xqAK1vnpxBYnYx";
@@ -36,7 +38,7 @@ export default function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
+    <SafeAreaProvider style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 30 }}>
         <HeaderTabs />
         <SearchBar />
@@ -45,8 +47,9 @@ export default function Home() {
         <Categories />
         <RestaurantItems restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
       <BottomTab />
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
