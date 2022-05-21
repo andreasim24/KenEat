@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons, Ionicons } from "react-native-vector-icons";
 
@@ -39,9 +39,9 @@ const RestaurantImage = props => {
         source={{
           uri: props.image
         }}
-        style={{ width: "100%", height: 180 }}
+        style={styles.restaurantImage}
       />
-      <TouchableOpacity style={{ position: "absolute", top: 20, right: 20 }}>
+      <TouchableOpacity style={styles.heartButton}>
         <MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
       </TouchableOpacity>
     </>
@@ -49,29 +49,12 @@ const RestaurantImage = props => {
 };
 
 const RestaurantInfo = props => (
-  <View
-    style={{
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginTop: 10
-    }}
-  >
+  <View style={styles.restaurantInfoContainer}>
     <View>
-      <Text style={{ fontSize: 15, fontWeight: "bold" }}>{props.name}</Text>
-      <Text style={{ fontSize: 13, color: "gray" }}>30-45 • min</Text>
+      <Text style={styles.restaurantName}>{props.name}</Text>
+      <Text style={styles.restaurantRange}>30-45 • min</Text>
     </View>
-    <View
-      style={{
-        backgroundColor: "#eee",
-        height: 30,
-        width: 40,
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "row",
-        borderRadius: 15
-      }}
-    >
+    <View style={styles.rating}>
       <Text>{props.rating}</Text>
       <Ionicons name="star" style={{ color: "black", marginLeft: 3 }} />
     </View>
@@ -85,7 +68,7 @@ export default function RestaurantItem({ navigation, ...props }) {
         <TouchableOpacity
           key={index}
           activeOpacity={1}
-          style={{ marginBottom: 30 }}
+          style={{ marginBottom: 10 }}
           onPress={() =>
             navigation.navigate("RestaurantDetail", {
               name: restaurant.name,
@@ -97,9 +80,7 @@ export default function RestaurantItem({ navigation, ...props }) {
             })
           }
         >
-          <View
-            style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}
-          >
+          <View style={styles.container}>
             <RestaurantImage image={restaurant.image_url} />
             <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
           </View>
@@ -108,3 +89,43 @@ export default function RestaurantItem({ navigation, ...props }) {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  heartButton: {
+    position: "absolute",
+    top: 20,
+    right: 20
+  },
+  restaurantImage: {
+    width: "100%",
+    height: 180
+  },
+  restaurantName: {
+    fontSize: 15,
+    fontWeight: "bold"
+  },
+  restaurantRange: {
+    fontSize: 13,
+    color: "gray"
+  },
+  restaurantInfoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10
+  },
+  rating: {
+    backgroundColor: "#eee",
+    height: 30,
+    width: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    borderRadius: 15
+  },
+  container: {
+    marginTop: 10,
+    padding: 15,
+    backgroundColor: "white"
+  }
+});

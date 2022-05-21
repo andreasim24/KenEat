@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, StyleSheet } from "react-native";
 import React from "react";
 
 const items = [
@@ -34,25 +34,37 @@ const items = [
 
 export default function Categories() {
   return (
-    <View
-      style={{
-        marginTop: 5,
-        backgroundColor: "#fff",
-        paddingVertical: 10,
-        paddingLeft: 20
-      }}
-    >
+    <View style={styles.mainContainer}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {items.map((item, index) => (
-          <View key={index} style={{ alignItems: "center", marginRight: 30 }}>
-            <Image
-              source={item.image}
-              style={{ width: 50, height: 40, resizeMode: "contain" }}
-            />
-            <Text style={{ fontSize: 13, fontWeight: "900" }}>{item.text}</Text>
+          <View key={index} style={styles.container}>
+            <Image source={item.image} style={styles.image} />
+            <Text style={styles.text}>{item.text}</Text>
           </View>
         ))}
       </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    marginTop: 5,
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingLeft: 20
+  },
+  container: {
+    alignItems: "center",
+    marginRight: 30
+  },
+  image: {
+    width: 50,
+    height: 40,
+    resizeMode: "contain"
+  },
+  text: {
+    fontSize: 13,
+    fontWeight: "900"
+  }
+});

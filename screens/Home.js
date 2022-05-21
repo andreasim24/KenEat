@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { View, SafeAreaView, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import HeaderTabs from "../components/home/HeaderTabs";
 import SearchBar from "../components/home/SearchBar";
@@ -7,7 +7,6 @@ import RestaurantItems, {
   localRestaurants
 } from "../components/home/RestaurantItems";
 import BottomTab from "../components/home/BottomTab";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Divider } from "react-native-elements";
 
 const YELP_API_KEY =
@@ -16,6 +15,7 @@ const YELP_API_KEY =
 export default function Home({ navigation }) {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
   const [city, setCity] = useState("San Francisco");
+  const [activeTab, setActiveTab] = useState("Delivery");
 
   const getRestaurantDataFromYelp = async () => {
     const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
@@ -28,19 +28,18 @@ export default function Home({ navigation }) {
 
     const res = await fetch(yelpUrl, apiOptions);
     const json = await res.json();
-    console.log(json);
+
     return setRestaurantData(json.businesses);
   };
 
   useEffect(() => {
     getRestaurantDataFromYelp();
-    console.log(restaurantData);
   }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 30 }}>
-        <HeaderTabs />
+        <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
         <SearchBar />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -55,5 +54,3 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({});

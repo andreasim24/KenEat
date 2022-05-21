@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Ionicons, AntDesign } from "react-native-vector-icons";
@@ -9,37 +9,14 @@ export default function SearchBar() {
       <GooglePlacesAutocomplete
         query={{ key: "AIzaSyATiAqIXBARofRD2apZcPQ1eEWZPH4fPV4" }}
         placeholder="Search"
-        styles={{
-          textInput: {
-            backgroundColor: "#eee",
-            borderRadius: 20,
-            fontWeight: "700",
-            marginTop: 7
-          },
-          textInputContainer: {
-            backgroundColor: "#eee",
-            borderRadius: 50,
-            flexDirection: "row",
-            alignItems: "center",
-            marginRight: 10
-          }
-        }}
+        styles={styles.googlePlace}
         renderLeftButton={() => (
           <View style={{ marginLeft: 10 }}>
             <Ionicons name="location-sharp" size={24} />
           </View>
         )}
         renderRightButton={() => (
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginRight: 10,
-              backgroundColor: "white",
-              padding: 9,
-              borderRadius: 30
-            }}
-          >
+          <View style={styles.text}>
             <AntDesign
               name="clockcircle"
               size={11}
@@ -52,3 +29,29 @@ export default function SearchBar() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  googlePlace: {
+    textInput: {
+      backgroundColor: "#eee",
+      borderRadius: 20,
+      fontWeight: "700",
+      marginTop: 7
+    },
+    textInputContainer: {
+      backgroundColor: "#eee",
+      borderRadius: 50,
+      flexDirection: "row",
+      alignItems: "center",
+      marginRight: 10
+    }
+  },
+  text: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 10,
+    backgroundColor: "white",
+    padding: 9,
+    borderRadius: 30
+  }
+});
