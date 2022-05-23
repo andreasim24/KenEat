@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Divider } from "react-native-elements";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-export default function MenuItems({ restaurantName, food, hideCheckbox }) {
+export default function MenuItems({
+  restaurantName,
+  food,
+  hideCheckbox,
+  marginLeft
+}) {
   const dispatch = useDispatch();
 
   const selectItem = (item, checkboxValue) =>

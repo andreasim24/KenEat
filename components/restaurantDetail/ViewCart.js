@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Modal, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 import LottieView from "lottie-react-native";
+import firebase from "../../apis/firebase";
 
 export default function ViewCart({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -21,6 +22,23 @@ export default function ViewCart({ navigation }) {
     currency: "USD"
   });
 
+  const addOrderToFireBase = () => {
+    setLoading(true);
+    const db = firebase.firestore();
+    db.collection("orders")
+      .add({
+        items: items,
+        restaurantName: restaurantName,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        setTimeout(() => {
+          setLoading(false);
+          navigation.navigate("OrderCompleted");
+        }, 2500);
+      });
+  };
+
   const checkoutModalContent = () => {
     return (
       <View style={styles.modalContainer}>
@@ -37,6 +55,7 @@ export default function ViewCart({ navigation }) {
             <TouchableOpacity
               style={styles.confirmCheckoutBtn}
               onPress={() => {
+                addOrderToFireBase();
                 setModalVisible(false);
               }}
             >
